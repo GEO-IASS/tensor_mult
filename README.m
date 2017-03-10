@@ -2,6 +2,8 @@
 % 
 %  Compute the product of two multidimensional arrays in Matlab.
 %  This is similar to TPROD* but it doesn't require a compiler.
+%  tensor_mult also supports sparse matrices, which TPROD doesn't.
+%
 %  Sometimes tprod is faster, and sometimes tensor_mult is faster.
 %  I haven't figured out why, yet.
 % 

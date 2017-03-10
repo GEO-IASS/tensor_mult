@@ -20,10 +20,15 @@ function compare_tm_tp
     compare(A, B, 1, 1);
     compare(A, B, [1 2], [1 2]);
 
-    A = complex(randn(101,101), randn(101,101));
-    B = complex(randn(101,101), randn(101,101));
+    A = complex(randn(51,101), randn(51,101));
+    B = complex(randn(51,101), randn(51,101));
     
     compare(A, B, [], []);
+    
+    A = sparse(diag(randn(1000,1)));
+    B = randn(1000,50,10);
+    
+    compare(A, B, 2, 1);
 end
 
 function compare(A, B, sum_idx_A, sum_idx_B)
@@ -33,8 +38,11 @@ function compare(A, B, sum_idx_A, sum_idx_B)
     C_tm = tensor_mult(A, B, sum_idx_A, sum_idx_B);
     toc_tm = toc(tic_tm);
     
+    A_full = full(A);
+    B_full = full(B);
+    
     tic_tp = tic;
-    C_tp = tprod(A, sum_idx_tp_A, B, sum_idx_tp_B);
+    C_tp = tprod(A_full, sum_idx_tp_A, B_full, sum_idx_tp_B);
     toc_tp = toc(tic_tp);
     
     error = norm(reshape(C_tm - C_tp, numel(C_tm), 1));
