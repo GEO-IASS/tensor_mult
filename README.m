@@ -1,3 +1,5 @@
+%  THIS IS WORK IN PROGRESS. FURTHER TESTING IS NEEDED.
+%
 %  Description
 % 
 %  Compute the product of two multidimensional arrays in Matlab.
