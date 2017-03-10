@@ -22,9 +22,11 @@ clear
 A = randn(5,7);
 B = randn(7,5);
 % tensor_mult command:
+
 C_tm = tensor_mult(A, B, 2, 1);
 
 % equivalent tprod command:
+
 C_tp = tprod(A, [1 -1], B, [-1 2]);
 
 %% ### Example 2 (Transposed matrix-matrix product)
@@ -38,9 +40,11 @@ clear
 A = randn(5,7);
 B = randn(5,9);
 % tensor_mult command:
+
 C_tm = tensor_mult(A, B, 1, 1);
 
 % equivalent tprod command:
+
 C_tp = tprod(A, [-1 1], B, [-1 2]);
 
 %% ### Example 3 (Tensor product without permutation)
@@ -54,11 +58,13 @@ clear
 A = randn(5,6,7,8);
 B = randn(9,10,5,6);
 % tensor_mult command:
+
 C_tm = tensor_mult(A, B, [1 2], [3 4]);
 
 % equivalent tprod command:
+
 C_tp = tprod(A, [-1 -2 1 2], B, [3 4 -1 -2]);
-% 
+ 
 %% ### Example 4 (Tensor product with permutation)
 clear
 %  C_{decf} = A_{abce} B_{dfab}
@@ -71,9 +77,11 @@ clear
 A = randn(5,6,7,8);
 B = randn(9,10,5,6);
 % tensor_mult command:
+
 C_tm = permute(tensor_mult(A, B, [1 2], [3 4]), [3,2,1,4]);
 
 % equivalent tprod command:
+
 C_tp = tprod(A, [-1 -2 3 2], B, [1 4, -1 -2]);
 
 %% ### Example 5 (Outer product)
@@ -84,9 +92,9 @@ clear
 A = randn(4,5,6);
 B = randn(7,8,9,10);
 % tensor_mult command:
+
 C_tm = tensor_mult(A, B, [], []);
 
 % equivalent tprod command:
+
 C_tp = tprod(A, [1 2 3], B, [4,5,6,7]);
-
-
