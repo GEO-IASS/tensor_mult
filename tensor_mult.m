@@ -103,7 +103,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function C = tensor_mult(A, B, sum_idx_A, sum_idx_B)
+function C = tensor_mult(A, B, sum_idx_A, sum_idx_B, perm)
 
     sum_idx_A = reshape(sum_idx_A, 1, numel(sum_idx_A));
     sum_idx_B = reshape(sum_idx_B, 1, numel(sum_idx_B));
@@ -146,5 +146,9 @@ function C = tensor_mult(A, B, sum_idx_A, sum_idx_B)
         reshape(permute(A, perm_A), [prod(size_A), sum_dim]) * ...
         reshape(permute(B, perm_B), [sum_dim, prod(size_B)]), ...
         [size_A,size_B]));
+    
+    if nargin == 5
+        C = permute(C, perm);
+    end
 
 end
