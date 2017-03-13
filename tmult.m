@@ -3,6 +3,9 @@ function C = tmult(A, pattern_A, B, pattern_B)
     if isempty(B)
         B = A;
     end
+    
+%     assert(numel(size(A)) == numel(pattern_A));
+%     assert(numel(size(B)) == numel(pattern_B));
 
     [~, sum_idx_A_order] = sort(pattern_A(pattern_A < 0));
     [~, sum_idx_B_order] = sort(pattern_B(pattern_B < 0));
@@ -16,7 +19,7 @@ function C = tmult(A, pattern_A, B, pattern_B)
     sum_idx_A = reshape(sum_idx_A, 1, numel(sum_idx_A));
     sum_idx_B = reshape(sum_idx_B, 1, numel(sum_idx_B));
     
-    [~, perm] = sort([pattern_A(pattern_A > 0), pattern_B(pattern_B > 0)]);
+    [expand, perm] = sort([pattern_A(pattern_A > 0), pattern_B(pattern_B > 0)]);
 
     size_A = size(A);
     size_B = size(B);
@@ -61,10 +64,20 @@ function C = tmult(A, pattern_A, B, pattern_B)
             reshape(permute(B, perm_B), [sum_dim, prod(size_B)]), ...
             reshape_size));
     else
-        C = squeeze(permute(reshape(...
+        C = permute(squeeze(reshape(...
             reshape(permute(A, perm_A), [prod(size_A), sum_dim]) * ...
             reshape(permute(B, perm_B), [sum_dim, prod(size_B)]), ...
-            reshape_size),perm));
+            reshape_size)),perm);
+    end
+    if ~isempty(expand) & expand ~= 1
+        size_C = size(C);
+        if numel(expand) == 1
+           final_reshape(expand) = max(size_C);
+        else
+            final_reshape(expand) = size_C;
+        end
+        final_reshape(final_reshape == 0) = 1;
+        C = reshape(C, final_reshape);
     end
 
 end
